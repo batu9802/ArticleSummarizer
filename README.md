@@ -1,0 +1,2 @@
+# ArticleSummarizer
+Article summarization is a task that can be performed using GPT-3, a large language model developed by OpenAI. GPT-3 is capable of understanding the meaning and context of text and can be fine-tuned for specific tasks, such as summarization, using machine learning techniques. The model can be used to automatically generate a summary of an article by extracting the most important information and presenting it in a condensed form. 
