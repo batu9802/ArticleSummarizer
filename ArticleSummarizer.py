@@ -6,23 +6,30 @@ class ArticleSummarizer:
         self.endpoint = "https://api.openai.com/v1/engines/davinci-codex/completions"
 
     def summarize(self, article_text):
-        # Define the API parameters
+        """Summarize the given article text using the OpenAI API."""
+
         params = {
             "prompt": f"summarize: {article_text}",
             "max_tokens": 100,
             "stop": "."
         }
 
-        # Define the headers
-        headers = {"Content-Type": "application/json", "Authorization": f"Bearer {self.api_key}"}
+        headers = {
+            "Content-Type": "application/json",
+            "Authorization": f"Bearer {self.api_key}"
+        }
 
-        # Make the API request
         response = requests.post(self.endpoint, json=params, headers=headers)
+        if not response.ok:
+            raise RuntimeError(
+                f"Request failed with status {response.status_code}: {response.text}"
+            )
 
-        # Extract the summary from the response
-        summary = response.text
+        data = response.json()
+        summary = ""
+        if data.get("choices"):
+            summary = data["choices"][0].get("text", "").strip()
 
-        # Return the summary
         return summary
 
 # Define the API key
